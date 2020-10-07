@@ -13,7 +13,7 @@ def load_data():
 
     return (x_train, y_train), (x_test, y_test)
 
-def create_dataset(y_test, normal=4, contamination=0.10):
+def create_dataset(x_test, y_test, normal=4, contamination=0.10):
     num_normals  = int(np.sum( y_test == normal ))
     num_outliers = int(np.ceil( num_normals * contamination ))
     # Get non-normal elements in test dataset
