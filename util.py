@@ -1,9 +1,24 @@
 import numpy as np
 import tensorflow.keras as keras
-from tensorflow.keras.datasets import mnist
+from tensorflow.keras.datasets import mnist, fashion_mnist
 
 def load_data(reshape=1):
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    # Normalize the input data to inverval [0, 1]
+    x_train = x_train.astype('float32') / 255
+    x_test  = x_test.astype('float32') / 255
+    # Flatten each image into a vecto'r
+    if reshape == 1:
+        x_train = x_train.reshape(len(x_train), 784)
+        x_test  = x_test.reshape(len(x_test), 784)
+    elif reshape == 2:
+        x_train = x_train.reshape(len(x_train), 28, 28, 1)
+        x_test  = x_test.reshape(len(x_test), 28, 28, 1)
+
+    return (x_train, y_train), (x_test, y_test)
+
+def load_data_fashion(reshape=1):
+    (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
     # Normalize the input data to inverval [0, 1]
     x_train = x_train.astype('float32') / 255
     x_test  = x_test.astype('float32') / 255
